@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 
 
-// creating new mongoose.Collection
+// creating admin Collection
 
 const Admin = mongoose.model('Admin', {
     username:{type:String, required: [true], unique: true},

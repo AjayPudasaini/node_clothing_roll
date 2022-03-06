@@ -1,6 +1,6 @@
 const express = require('express')
 const bodyParser = require('body-parser')
-
+const cors = require('cors');
 const db = require('./Database/db')
 
 const path = require('path');
@@ -20,6 +20,8 @@ const app = express()
 app.use(bodyParser.urlencoded({extended:false}))
 
 app.use(express.json())
+app.use(cors());
+app.use(express.static(media))
 
 app.use(Admin);
 app.use(User);

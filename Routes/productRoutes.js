@@ -59,6 +59,7 @@ function(req, res)
 // =================== start getting all product list =================================
 router.get('/products/list', function(req, res)
 {
+    console.log("url hitted");
     Product.find().then(function(data)
     {
         res.status(200).json({data, success:true})

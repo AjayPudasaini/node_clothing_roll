@@ -8,9 +8,11 @@ const User = require('../Models/userModel');
 // ====================== start add to cart ======================
 router.post('/product/add-to-cart/:id', isUserLoggedIn.isUserLoggedIn, function(req,res)
 {
+    console.log("add to cart urt hitteeed");
     const productQuantity = req.body.productQuantity
     const cartAddedBy = req.uInfo._id
     const product = req.params.id
+    
     
 
 
@@ -27,6 +29,8 @@ router.post('/product/add-to-cart/:id', isUserLoggedIn.isUserLoggedIn, function(
     })
 });
 // ====================== end add to cart ======================
+
+
 
 
 // ====================== start update my cart item ======================
@@ -53,6 +57,8 @@ router.put('/update/my-cart-item/:id', isUserLoggedIn.isUserLoggedIn, function(r
 // ====================== end update my cart item ======================
 
 
+
+
 // ======================= start getting added products in cart ===================
 router.get('/cart-item/:id', function(req, res)
 {
@@ -67,6 +73,26 @@ router.get('/cart-item/:id', function(req, res)
     })
 })
 // ======================= end getting added products in cart ===================
+
+
+
+// ======================= start getting single cart item ===================
+router.get('/cart-item/:id', function(req, res)
+{
+    const id  = req.params.id
+
+    AddToCart.findOne({_id:id}).then(function(data)
+    {
+        res.status(200).json({data, success:true})
+    })
+
+    .catch(function(e)
+    {
+        res.status(500).json({error : e, success:false})
+    })
+});
+// ======================= end getting start getting single cart item ===================
+
 
 
 
@@ -91,22 +117,29 @@ router.get('/already/added-cart-item/:id', isUserLoggedIn.isUserLoggedIn, functi
 
 
 
+
+
 // ============ start getting added products in cart by specific user =====================
 router.get('/my-cart-item', isUserLoggedIn.isUserLoggedIn, function(req, res)
 {
     const id = req.uInfo._id
     AddToCart.find({cartAddedBy:id}).populate("product").then(function(data)
     {
-        res.status(200).json({success : true, data})
+        res.status(200).json({data, success:true})
 
         console.log(data)
     })
     .catch(function(e)
     {
-        res.status(500).json({error:e})
+        res.status(500).json({error:e, success:false})
     })
 });
 // ============ end getting added products in cart by specific user =====================
+
+
+
+
+
 
 
 // ============== start delete added products in cart ====================
@@ -124,6 +157,10 @@ router.delete('/delete/my-cart/:id', isUserLoggedIn.isUserLoggedIn, function(req
 
 });
 // ============== end delete added products in cart ====================
+
+
+
+
 
 
 

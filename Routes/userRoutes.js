@@ -23,6 +23,8 @@ router.post('/account/register/user', upload.single('profilePicture'),
 {
     const errors = validationResult(req);
 
+    console.log("url hitted");
+
     if (errors.isEmpty()) {
         const username = req.body.username
         const password = req.body.password
@@ -121,11 +123,11 @@ router.put('/account/user/update', isUserLoggedIn.isUserLoggedIn, upload.single(
     const firstName = req.body.firstName
     const lastName = req.body.lastName
     const address = req.body.address
-    const profilePicture = req.file.path
+    // const profilePicture = req.file.path
 
 
     User.updateOne({_id:id}, {username:username, email:email, firstName:firstName,
-                        lastName:lastName, address:address, profilePicture:profilePicture})
+                        lastName:lastName, address:address})
     .then(function(result)
     {
         console.log(result)

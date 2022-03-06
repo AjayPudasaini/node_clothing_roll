@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 
 
-// creating new mongoose.Collection
+// creating mongoose collection for user
 
 const User = mongoose.model('User', {
     username:{type:String, required: true, unique: true},
